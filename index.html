@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="https://t3.ftcdn.net/jpg/02/47/48/00/360_F_247480017_ST4hotATsrcErAja0VzdUsrrVBMIcE4u.jpg" type="image/x-icon">
+        <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      main {
+        width: 100%;
+        height: 100vh;
+      }
+      nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #636ae8;
+        height: 60px;
+      }
+      .second {
+        width: 25%;
+      }
+      ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style: none;
+        width: 100%;
+        height: 100%;
+        font-size: 18px;
+        text-transform: capitalize;
+      }
+      .last {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .search {
+        width: 20%;
+      }
+      .search input {
+        width: 100%;
+        outline: none;
+        border: none;
+        font-size: 14px;
+        border-radius: 10px;
+        background-color: #efefef;
+        padding: 10px 15px;
+      }
+      .last button {
+        height: 50%;
+        border: none;
+        background-color: #efefef;
+        cursor: pointer;
+        margin: 5px;
+        font-size: 15px;
+        letter-spacing: 2px;
+        padding: 4px 0px;
+        background-color: lightgreen;
+        border-radius: 5px;
+      }
+      .model-box {
+        width: 50%;
+        height: 60%;
+        background-color: goldenrod;
+        max-width: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: none;
+        transform: translate(-50%, -50%);
+      }
+      /* Dark Mode Styles */
+      .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+      }
+      .dark-mode nav {
+        background-color: #333333;
+      }
+      .dark-mode .search input .card {
+        background-color: #444444;
+        color: #ffffff;
+      }
+      .dark-mode .last button {
+        background-color: #444444;
+        color: #ffffff;
+      }
+      .dark-mode .list {
+        background-color: #444444;
+        color: #ffffff;
+      }
+
+      .cls-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: #fff;
+      }
+
+      .form-section {
+        position: relative;
+        background-color: red;
+      }
+      form {
+        position: absolute;
+        top: 100px;
+        left: 180px;
+        width: 50%;
+        margin-bottom: 10px;
+        /* margin: 8px 12px; */
+        /* display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; */
+      }
+      label {
+        font-size: 17px;
+      }
+      form input {
+        width: 100%;
+        outline: none;
+        border: none;
+        font-size: 14px;
+        border-radius: 10px;
+        background-color: #efefef;
+        padding: 10px 15px;
+      }
+      #mark {
+        width: 100%;
+        padding: 13px;
+        margin: 12px 0;
+        border-radius: 13px;
+        background-color: #636ae8;
+        outline: none;
+        border: none;
+        letter-spacing: 1px;
+        color: white;
+      }
+      /* not implemented */
+      .card {
+        margin-top: 30px;
+        width: 20%;
+        height: 250px;
+        border: 1px solid gray;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      .card > img {
+        width: 160%;
+        height: 130px;
+        object-fit: contain;
+        border-radius: 5px;
+      }
+      .card > h2 {
+        text-align: center;
+        color: black;
+      }
+      .card > p {
+        color:black;
+      }
+      .card > .btn {
+        width: 80%;
+        height: 15%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+      .btn > button {
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+      .add-to-cart {
+        background-color: orange;
+      }
+      .buy-now {
+        background-color: green;
+      }
+      /* Modal Styles */
+      .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 500px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: none;
+        z-index: 1000;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+      }
+      .modal-header h2 {
+        font-size: 20px;
+      }
+      .modal-content {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .modal-footer {
+        margin-top: 20px;
+        text-align: right;
+      }
+      .modal-footer span {
+        font-weight: bold;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 999;
+      }
+      /* where all items to */
+      .list {
+        width: 100%;
+        height: auto;
+        /* background-color: white; */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+      }
+      [class*="col-"] {
+        width: 100%;
+      }
+
+      .animation {
+  width: 100%;
+  overflow: hidden;
+   /* Hides the text when it goes out of bounds */
+  position: relative;
+  background-color: #f1f1f1;
+}
+
+marquee {
+  font-size: 24px;
+  color: #000;
+  font-weight: bold;
+  animation: colorChange 10s linear infinite;
+}
+
+@keyframes colorChange {
+  0% { color: #000; }
+  25% { color: #ff0000; }
+  50% { color: #00ff00; }
+  75% { color: #0000ff; }
+  100% { color: #000; }
+}
+
+
+
+      @media only screen and (max-width: 768px) {
+        .list {
+          flex-direction: column;
+          align-items: center;
+        }
+        .card {
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <div class="first" style="font-size: 22px">MyStore</div>
+        <div class="second">
+          <ul>
+            <li>Home</li>
+            <li>Products</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div id="search" class="search">
+          <input type="text" placeholder="Search Products" />
+        </div>
+        <div class="last">
+          <button class="login-btn">Login</button>
+          <button class="Add-btn">
+            <i class="fa-solid fa-cart-shopping"></i> Add to cart
+          </button>
+          <button class="Dark-btn">
+            <i class="fa-solid fa-moon"></i> Dark Mode
+          </button>
+        </div>
+      </nav>
+
+      <div class="animation">
+        <marquee behavior="scroll" direction="left">
+          <h3> Sale Discount up to 50%</h3>
+         </marquee>
+    </div>
+   </marquee>
+   <!-- <div class="animate-pulse">
+    <div class="card mt-8 w-1/5 h-64 border border-gray-300 rounded-lg flex flex-col items-center justify-around bg-white shadow-md">
+    </div>
+  </div> -->
+      <!-- model-box -->
+      <div class="model-box" id="model-box">
+        <button class="cls-btn" id="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <h1 style="text-align: center">Login</h1>
+
+        <div class="form-section">
+          <form action="" id="registerform">
+            <label for="">Email</label>
+            <br />
+            <input type="text" placeholder="Enter your email" id="email" />
+            <label for="">Password</label> <br />
+            <input
+              type="text"
+              placeholder="Enter your password"
+              id="password"
+            />
+            <br />
+            Confirm Password
+            <input
+              type="text"
+              placeholder="Confirm password"
+              id="confirmpassword"
+            />
+            <br />
+            <button id="mark">Login</button>
+            <p style="text-align: center">
+              Not registered? <a href="./register.html">Click here to register</a>
+            </p>
+          </form>
+        </div>
+      </div>
+      <!-- summary list -->
+      <div class="modal" id="modal">
+        <div class="modal-header">
+          <h2>Order Summary</h2>
+          <button class="close-btn" id="close-modal">&times;</button>
+        </div>
+
+        <div class="modal-content" id="modal-content"></div>
+        <div class="modal-footer">
+          Total Price: $<span id="total-price">0.00</span>
+        </div>
+      </div>
+
+      <div class="overlay" id="overlay"></div>
+      <div class="list"></div>
+    </main>
+
+    <script src="./index.js"></script>
+    <script>
+    const email = document.querySelector("#email");
+const password = document.querySelector("#password");
+const confirmpassword = document.querySelector("#confirmpassword");
+const form = document.querySelector("#registerform");
+
+const login = document.querySelector(".login-btn");
+const AddCart = document.querySelector(".Add-btn");
+const Dark = document.querySelector(".Dark-btn");
+const closebtn = document.querySelector("#close-btn");
+const modelbox = document.querySelector("#model-box");
+
+const overlay = document.getElementById("overlay");
+const modal = document.getElementById("modal");
+const modalContent = document.getElementById("modal-content");
+const totalPriceEl = document.getElementById("total-price");
+const closeModal = document.getElementById("close-modal");
+
+let cartCount = 0;
+let totalPrice = 0;
+let orderDetails = [];
+
+// Initialize AddCart button content
+AddCart.innerHTML = `<i class="fa-solid fa-cart-plus"></i> (${cartCount})`;
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (email.value && password.value) {
+    if (password.value === confirmpassword.value) {
+      const data = {
+        email: email.value,
+        password: password.value,
+      };
+
+      console.log(data);
+
+      localStorage.setItem("userdata", JSON.stringify(data));
+
+      window.location.href = "./index.html";
+    } else {
+      alert("Passwords do not match. Please try again.");
+      confirmpassword.style.background = "lightpink";
+      confirmpassword.style.border = "1px solid red";
+    }
+  } else {
+    alert("Please fill all the fields.");
+    if (!email.value) email.style.border = "1px solid red";
+    if (!password.value) password.style.border = "1px solid red";
+  }
+});
+
+function getuser() {
+  const data = localStorage.getItem("userdata");
+  if (data) {
+    console.log(data);
+    console.log(JSON.parse(data));
+  }
+}
+getuser();
+
+login.addEventListener("click", () => {
+  modelbox.style.display = "block";
+});
+
+closebtn.addEventListener("click", () => {
+  modelbox.style.display = "none";
+});
+
+Dark.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  if (document.body.classList.contains("dark-mode")) {
+    Dark.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+  } else {
+    Dark.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
+  }
+});
+
+const api = "https://fakestoreapi.com/products";
+const listbox = document.querySelector(".list");
+
+const fdata = async () => {
+  try {
+    const response = await fetch(api);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+     data = await response.json();
+    displayNames(data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    alert(`Error fetching data: ${error.message}`);
+  }
+};
+// Filter products based on search query
+let data=[];
+const searchInput = document.querySelector("#search");
+searchInput.addEventListener("input", (e) => {
+  const searchQuery = e.target.value.toLowerCase();
+  const filteredData = data.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery)
+  );  
+  displayNames(filteredData);
+});
+
+
+function displayNames(data) {
+  listbox.innerHTML = "";
+  data.forEach((item) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+        <img src="${item.image}" alt="${item.title}">
+        <h2>${item.title.slice(0, 24)}</h2>
+        <p>$${item.price}</p>
+        <div class="btn">
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="buy-now">Buy Now</button>
+        </div>
+      `;
+
+    // Add to Cart functionality
+    card.querySelector(".add-to-cart").addEventListener("click", () => {
+      cartCount++;
+      AddCart.innerHTML = `<i class="fa-solid fa-cart-plus"></i> (${cartCount})`;
+    });
+
+    // Buy Now functionality
+    card.querySelector(".buy-now").addEventListener("click", () => {
+      orderDetails.push({ title: item.title, price: item.price });
+      totalPrice += item.price;
+      updateModal();
+    });
+
+    listbox.appendChild(card);
+  });
+}
+
+const updateModal = () => {
+  modalContent.innerHTML = "";
+  orderDetails.forEach((item, index) => {
+    const itemRow = document.createElement("div");
+    itemRow.className = "modal-item";
+    itemRow.innerHTML = `
+        ${index + 1}. ${item.title} - $${item.price} 
+        <button class="remove-item" data-index="${index}">Remove</button>
+      `;
+    modalContent.appendChild(itemRow);
+  });
+  totalPriceEl.textContent = totalPrice.toFixed(2);
+  overlay.style.display = "block";
+  modal.style.display = "block";
+
+  const removeButtons = document.querySelectorAll(".remove-item");
+  removeButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const index = e.target.getAttribute("data-index");
+      removeItemFromOrder(index);
+    });
+  });
+};
+
+const removeItemFromOrder = (index) => {
+  const removedItem = orderDetails[index];
+  orderDetails.splice(index, 1);
+  totalPrice -= removedItem.price;
+  updateModal();
+};
+
+closeModal.addEventListener("click", () => {
+  overlay.style.display = "none";
+  modal.style.display = "none";
+});
+
+// Fetch and display the products
+fdata();
+
+
+    </script>
+  </body>
+</html>

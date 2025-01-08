@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Page</title>
+    <link rel="shortcut icon" href="https://t3.ftcdn.net/jpg/02/47/48/00/360_F_247480017_ST4hotATsrcErAja0VzdUsrrVBMIcE4u.jpg" type="image/x-icon">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        width: 100%;
+        background-color: wheat;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 20px;
+        width: 100%;
+        height: 100%;
+      }
+      .left {
+        width: 50%;
+      }
+      .left h1 {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        letter-spacing: 1px;
+        overflow: hidden;
+        border-right: 2px solid #61dafb;
+        white-space: nowrap;
+        margin: 0 auto;
+        animation: typing 3s steps(30, end), blink 0.5s step-end infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink {
+        from {
+          border-color: transparent;
+        }
+        to {
+          border-color: #61dafb;
+        }
+      }
+      .left section {
+        margin-top: 23px;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        letter-spacing: 1px;
+      }
+      .right {
+        background-color: #fff;
+        width: 25%;
+        padding: 20px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        border-radius: 10px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      form label {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      form input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 13px;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.29);
+        font-size: 14px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 13px;
+        background-color: #4caf50;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <h1 id="animation">MyStore Page</h1>
+        <section>
+          "Create your MYStore account to enjoy seamless shopping, exclusive
+          deals, and a personalized experience—sign up now!"
+        </section>
+      </div>
+      <div class="right">
+        <form id="form">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter your name"
+          />
+
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your email"
+          />
+
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+          />
+
+          <button id="btn" type="submit">Register</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const form = document.getElementById("form");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Validate inputs
+        if (nameInput.value && emailInput.value && passwordInput.value) {
+          const userData = {
+            name: nameInput.value,
+            email: emailInput.value,
+            password: passwordInput.value,
+          };
+
+          // Store user data in localStorage
+          localStorage.setItem("userdata", JSON.stringify(userData));
+          alert("Registration successful!");
+          window.location.href = "./index.html"; // Redirect to homepage or another page
+        } else {
+          alert("Please fill in all fields.");
+        }
+      });
+    </script>
+  </body>
+</html>
